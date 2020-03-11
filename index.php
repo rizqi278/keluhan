@@ -9,7 +9,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>keluhan</title>
+  <title>Bootstrap Example</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
@@ -26,13 +26,14 @@
   <form method='GET'>
     <div class="form-group">
       <label for="jobdesk">Jobdesk :</label>
-      <input type="text" class="form-control" id="jobdesk" name="nama" placeholder="masukkan Jobdesk">
+      <input type="text" class="form-control" id="jobdesk" name="jobdesk" placeholder="masukkan Jobdesk">
     </div>
     <div class="form-group">
       <label for="keluhan">Keluhan : </label>
       <textarea class="form-control" id="keluhan" name="keluhan" rows="5"></textarea>
     </div>
     <button type="submit" class="btn btn-success">Submit</button>
+    </form>
     <?php
     if (isset ($_GET['jobdesk'])) {
     $url = 'https://akbar277.000webhostapp.com/keluhan/rest.php?jobdesk='.urlencode($_GET['jobdesk'])."&keluhan=".urlencode($_GET['keluhan']);
@@ -44,10 +45,7 @@
     curl_close($ch);
     }   
     ?>
-    <h1>Keluhan</h1><br>
-    <div class="container mt-3">
-        <h2>KELUHAN</h2>
-          <div class="media-body">
+    <h1>List Keluhan</h1><br>
           <?php
             $sql = "SELECT * FROM keluhan";
             $result = mysqli_query($conn,$sql);
@@ -55,11 +53,12 @@
             if (mysqli_num_rows($result) > 0) {
             while($row = mysqli_fetch_assoc($result)) {
                 ?>
-              <<tr>
-                <td><?php echo $row['jobdesk'];?></td>
-                <td><?php echo $row['tanggal'];?></td>
-                <td><?php echo $row['keluhan'];?></td>
-              </tr>
+                <div class="media border p-3">
+                <div class="media-body">
+                <h4>Jobdesk : <?php echo $row['jobdesk'];?></h4>
+                <p><?php echo $row['keluhan'];?></p>
+                </div>
+                </div>
             <?php
           }
             } else {
